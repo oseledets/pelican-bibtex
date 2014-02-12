@@ -62,7 +62,6 @@ def add_publications(generator):
     plain_style = plain.Style()
     html_backend = html.Backend()
     formatted_entries = plain_style.format_entries(bibdata_all.entries.values())
-
     for formatted_entry in formatted_entries:
         key = formatted_entry.key
         entry = bibdata_all.entries[key]
@@ -70,12 +69,13 @@ def add_publications(generator):
         pdf = entry.fields.pop('pdf', None)
         slides = entry.fields.pop('slides', None)
         poster = entry.fields.pop('poster', None)
-
         #render the bibtex string for the entry
         bib_buf = StringIO()
         bibdata_this = BibliographyData(entries={key: entry})
         Writer().write_stream(bibdata_this, bib_buf)
         text = formatted_entry.text.render(html_backend)
+        text = text.replace('{', '').replace('}', '')
+        authors = [ x.last()[0] for x in entry.persons['author']]
 
         publications.append((key,
                              year,
@@ -83,8 +83,8 @@ def add_publications(generator):
                              bib_buf.getvalue(),
                              pdf,
                              slides,
-                             poster))
-
+                             poster, authors))
+    publications = sorted(publications, key=lambda x : x[1], reverse=True)
     generator.context['publications'] = publications
 
 

@@ -50,14 +50,15 @@ def add_publications(generator):
         logger.warn('`pelican_bibtex` failed to load dependency `pybtex`')
         return
 
-    refs_file = generator.settings['PUBLICATIONS_SRC']
+    refs_files = generator.settings['PUBLICATIONS_SRC']
     try:
-        bibdata_all = Parser().parse_file(refs_file)
+        bibdata_all = Parser().parse_files(refs_files)
     except PybtexError as e:
         logger.warn('`pelican_bibtex` failed to parse file %s: %s' % (
-            refs_file,
+            refs_files,
             str(e)))
         return
+        
 
     publications = []
 

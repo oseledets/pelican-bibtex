@@ -80,15 +80,17 @@ def add_publications(generator):
         text = formatted_entry.text.render(html_backend)
         text = text.replace('{', '').replace('}', '')
         authors = [ x.last()[0] for x in entry.persons['author']]
-
-        publications.append((key,
-                             year,
-                             text,
-                             bib_buf.getvalue(),
-                             pdf,
-                             slides,
-                             poster, authors))
-    publications = sorted(publications, key=lambda x : x[1], reverse=True)
+        
+        publications.append({'key':key,
+                            'year':year,
+                            'text':text,
+                            'bibtex':bib_buf.getvalue(),
+                            'pdf':pdf,
+                            'slides':slides,
+                            'poster':poster, 
+                            'authors':authors})
+    #publications = sorted(publications, key=lambda x : x[1], reverse=True)
+    #We should make it a list of object "publication"
     generator.context['publications'] = publications
 
 

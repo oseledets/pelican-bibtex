@@ -76,7 +76,7 @@ def add_publications(generator):
         pdf = entry.fields.get('pdf', None)
         slides = entry.fields.get('slides', None)
         poster = entry.fields.get('poster', None)
-
+        newversion = entry.fields.get('newversion', None)
         #render the bibtex string for the entry
         bib_buf = StringIO()
         bibdata_this = BibliographyData(entries={key: entry})
@@ -92,7 +92,8 @@ def add_publications(generator):
                             'pdf':pdf,
                             'slides':slides,
                             'poster':poster, 
-                            'authors':authors})
+                            'authors':authors,
+                            'newversion':newversion})
     #publications = sorted(publications, key=lambda x : x[1], reverse=True)
     #We should make it a list of object "publication"
     generator.context['publications'] = publications

@@ -40,16 +40,17 @@ def add_publications(generator):
         from StringIO import StringIO
     except ImportError:
         from io import StringIO
-    try:
-        from pybtex.database.input.bibtex import Parser
-        from pybtex.database.output.bibtex import Writer
-        from pybtex.database import BibliographyData, PybtexError
-        from pybtex.backends import html
-        #from pybtex.style.formatting import plain
-        from bibstyle import plain
-    except ImportError:
-        logger.warn('`pelican_bibtex` failed to load dependency `pybtex`')
-        return
+    #try:
+    from pybtex.database.input.bibtex import Parser
+    from pybtex.database.output.bibtex import Writer
+    from pybtex.database import BibliographyData, PybtexError
+    from pybtex.backends import html
+
+    #from pybtex.style.formatting import plain
+    from .bibstyle import plain
+    #except ImportError:
+    #    logger.warn('`pelican_bibtex` failed to load dependency `pybtex`')
+    #    return
 
     refs_files = generator.settings['PUBLICATIONS_SRC']
     try:
